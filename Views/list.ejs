@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Restaurant</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-light-grey w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Welcome<br><%=user%></b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <!--redirect to new page-->
+    <a href="/new" class="w3-bar-item w3-button w3-hover-white">Create New Restaurant</a>  
+    <!--logout function-->
+    <a href="/logout" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-dark-grey w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-DimGray w3-margin-right" onclick="w3_open()">☰</a>
+  <span><%=user%></span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+        <h1 class="w3-jumbo"><b>Restaurants</b></h1>
+        <p><%= nRestaurant %> result(s) found </p>
+        <hr style="width:50px;border:5px solid grey" class="w3-round">
+  </div>
+  <!--table-->
+  <div>
+        <table class="w3-table w3-striped">
+            <tr><th>name</th></tr>
+            <tbody>
+                <% for(var i=0; i < restaurants.length; i++) {%>
+                    <tr><td><a href="/details?_id=<%=restaurants[i]._id %>"> <%= restaurants[i].name %></a></td></tr>
+                <%} %>
+            <tbody>
+        </table>
+  </div>
+  
+ 
+
+<!-- End page content -->
+</div>
+
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>

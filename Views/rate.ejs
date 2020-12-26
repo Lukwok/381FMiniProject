@@ -1,0 +1,12 @@
+<html>
+<title>Rate </title>
+<body>
+  <h2>Rate </h2>
+<form acton="/rate" method="post">
+  <input type="hidden" name="_id" value=<%= data._id%>>
+  <label>Score (1-10):</label>
+  <input type="number" name="score" min=1 max=10>
+  <input type="submit" value="Rate">
+</form>
+</body>
+</html>

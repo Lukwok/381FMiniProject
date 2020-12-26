@@ -1,0 +1,84 @@
+<html lang="en">
+<title>Create</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+<body>
+
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-dark-grey w3-padding">
+  <span>Create New Restaurant</span>
+</header>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-right:40px">
+
+  
+  <!--input form-->
+  <div class="w3-container" id="contact" style="margin-top:75px">
+  <form action="/new" method="post">
+      <div class="w3-section">
+      	<p>Owner:
+        <input class="w3-input w3-border" type="text" name="owner" value="<%=user%>" readonly>
+      	</p>
+      	<!--must require name -->
+      	<p style="color:red">*Restaurant Name:
+        <input class="w3-input w3-border" type="text" name="name" required>
+        </p>
+        <p>Borough:
+          <input class="w3-input w3-border" type="text" name="borough">
+        </p>
+        <p>Cuisine:
+        <input class="w3-input w3-border" type="text" name="cuisine">
+      	</p>
+        <p>Street:
+        <input class="w3-input w3-border" type="text" name="street">
+      	</p>
+        <p>Building:
+        <input class="w3-input w3-border" type="text" name="building">
+      	</p>
+        <p>Zipcode:
+        <input class="w3-input w3-border" type="text" name="zipcode">
+      	</p>
+        GPS Coordinates:
+        <div class="w3-row-padding" style="margin:0 -16px;">
+         	<div class="w3-half">
+        	<input class="w3-input w3-border" type="number" name="xcoord" step="any" placeholder="longitude"></div>
+            <div class="w3-half">
+            <input class="w3-input w3-border" type="number" name="ycoord" step="any" placeholder="latitude"></div>
+      	</div>
+        <p>Photo:
+        <input class="w3-input w3-border" type="file" name="image" accept="image/*">
+      	</p>
+      </div>
+      <!--button-->
+      <div class="w3-half">
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-green w3-margin-bottom" >Create</button>
+      </div>
+      <div class="w3-half">
+      <button type="button" onclick="goBack()" class="w3-button w3-block w3-padding-large w3-light-gray w3-margin-bottom" >Cancel</button>
+      </div>
+  </form>
+  </div>
+
+<!-- End page content -->
+</div>
+
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+</body>
+</html>
