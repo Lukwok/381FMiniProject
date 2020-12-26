@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<!--Map API-->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src= "<%=mapAPI%>"
+      defer
+    ></script>
+<!--End of API-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       #map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-light-grey w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Welcome<br><%= user%></b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <!--rate function-->
+    <a href="/rate?_id=<%= restaurant._id %>" class="w3-bar-item w3-button w3-hover-white">Rate</a>  
+    <!--edit function-->
+    <a class="w3-bar-item w3-button w3-hover-white" onclick="myEdit()">Edit</a>
+    <!--delete function-->
+    <a class="w3-bar-item w3-button w3-hover-white" onclick="myConfirm()">Delete</a>
+    <!--Map function-->
+    <a class="w3-bar-item w3-button w3-hover-white" onclick="document.getElementById('map').style.display='block'">Map</a>
+    <!--go back function-->
+    <a href="javascript:history.back()" class="w3-bar-item w3-button w3-hover-white">Go Back</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-dark-grey w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-DimGray w3-margin-right" onclick="w3_open()">☰</a>
+  <!--Name-->
+    <span><%= restaurant.name%></span>
+</header>
+
+<!-- Map Modal -->
+<div id="map" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black w3-display-container">
+      <!--close button-->
+      <span onclick="document.getElementById('map').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1>Map</h1>
+    </div>
+    <!--Map image-->
+    <div class="w3-container ">
+      <div id="gmap" style="height: 400px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+        
+  </div>
+  <!--table-->
+  <div class="w3-container">
+    <!--image-->
+    <%if (restaurant.photo){ %>
+  	    <img class="w3-image" src="data:<%=restaurant.mimetype %>;bas64, <%=restaurant.photo %>" width="1500" height="700"> 
+    <br><br>
+    <% } %>
+        <table class="w3-table w3-striped">
+          <!--table list-->          
+            <tr><th>Borough</th><td><%= restaurant.borough %></td></tr>
+            <tr><th>Cuisine</th><td><%= restaurant.cuisine %></td></tr>
+            <tr><th>Building</th><td><%= restaurant.address.building %></td></tr>
+            <tr><th>Zipcode</th><td><%= restaurant.address.zipcode %></td></tr>
+            <tr><th>GPS</th><td><%= restaurant.address.coord %></td></tr>
+            <tr><th>Rating</th><td>
+            <!--list all the rating-->
+                <% for(var i=0; i < restaurant.grades.length; i++) {%>
+                  <%= restaurant.grades[i].user %>: <%= restaurant.grades[i].score %>  <br>
+                <%} %>
+            </td></tr>
+            <tr><th>Created by</th><td name="ower" id="owner"><%= restaurant.owner %></td></tr>
+            
+            
+        </table>
+  </div>
+  
+ 
+
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+function myConfirm() {
+  // check have the permession of delete
+  var owner = "<%=restaurant.owner%>";
+  var user = "<%=user%>";
+  if (owner == user){
+    var enter = confirm("Are you sure delete the record");
+    if (enter) {
+      window.location.href = `/delete?_id=<%=restaurant._id%>`;
+    } 
+  }
+  else {
+      warning()
+  }
+}
+
+function myEdit(){
+  var owner = "<%=restaurant.owner%>";
+  var user = "<%=user%>";
+  //check permission
+  if (user == owner){
+        window.location = `/edit?_id=<%=restaurant._id%>`;
+  } else {
+    warning()
+  }
+}
+
+//display the alert
+function warning(){
+    alert("Sorry! You are not owner. You cannot modify the record");
+}
+
+//map function
+function initMap() {
+  // The location of Uluru
+  const lat = "<%=restaurant.address.coord[1]%>";
+  const lng = "<%=restaurant.address.coord[0]%>"
+  const uluru = { lat: parseInt(lat), lng: parseInt(lng) };
+  // The map, centered at Uluru
+  const map = new google.maps.Map(document.getElementById("gmap"), {
+    zoom: 18,
+    center: uluru,
+  });
+  // The marker, positioned at Uluru
+  const marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+  });
+}
+
+</script>
+
+</body>
+</html>
