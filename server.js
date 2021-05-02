@@ -5,7 +5,7 @@ const ObjectID = require('mongodb').ObjectID;
 const assert = require('assert');
 const fs = require('fs');
 const formidable = require('express-formidable');
-const mongourl = 'mongodb+srv://admin:admin@cluster0.toqh1.mongodb.net/Restaurant?retryWrites=true&w=majority';
+const mongourl = 'your mongodb link';
 const dbName = 'Restaurant';
 const session = require("cookie-session")
 const bodyParser = require('body-parser');
