@@ -8,8 +8,8 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const assert = require('assert');
 const { parse } = require('path');
-const mongourl = 'mongodb://developer:developer@cluster0-shard-00-00.toqh1.mongodb.net:27017,cluster0-shard-00-01.toqh1.mongodb.net:27017,cluster0-shard-00-02.toqh1.mongodb.net:27017/Restaurant?ssl=true&replicaSet=atlas-6xp0pl-shard-0&authSource=admin&retryWrites=true&w=majority';
-const googlemapurl="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQA7UPIFwtTbJHvyMpSBLBPmi0qFumJ0w&callback=initMap&libraries=&v=weekly"
+const mongourl = 'your mongodb link';
+const googlemapurl="your google map api"
 const dbName = 'Restaurant';
 
 app.use(formidable());
